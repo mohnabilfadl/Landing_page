@@ -130,12 +130,6 @@ function scrollFunction() {
 
 
 
-// Scroll to anchor ID using scrollTO event
-
-
-
-
-
 /**
  * End Main Functions
  * Begin Events
@@ -145,11 +139,12 @@ function scrollFunction() {
 // Build menu
 buildMenu();
 
-// Scroll to section on link click
-//scrollToSection();
+
+
 
 // Set sections as active
 setActive();
+
 
 
 //add event to top button
