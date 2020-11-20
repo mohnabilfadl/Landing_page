@@ -35,8 +35,9 @@ const nFragment = document.createDocumentFragment();
 //  A helper function to determine if an element is in the view port
 // reference: https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
 
-function isInViewPort(ele)
-{
+
+
+function isInViewPort(ele){
     let bounding = ele.getBoundingClientRect();
     return (
         bounding.top >= 0 &&
@@ -74,18 +75,16 @@ function getActiveElement() {
 // build the nav
 function buildMenu() {
     
-    for (const section of sections){
+    for (const sec of sections){
 
-    const li = document.createElement("li");
-    const liLink = document.createElement('a');
-    const liText = document.createTextNode(section.getAttribute("data-nav"));
+        const li = document.createElement("li");
+
+        li.className = 'menu__link';
+        li.dataset.nav = sec.id;
+        li.innerText = sec.dataset.nav;
+
     
-    liLink.classList.add("menu__link");
-    liLink.href = '#'+section.id;
-
-    liLink.appendChild(liText);
-    li.appendChild(liLink);
-    nFragment.appendChild(li)
+        nFragment.appendChild(li)
     }
 
 navBar.appendChild(nFragment);
@@ -96,8 +95,9 @@ navBar.appendChild(nFragment);
 // Add class 'active' to section when near top of viewport
 
 function setActive () {
-    window.addEventListener('scroll', function (event) {
+    window.addEventListener('scroll', function () {
         let section = getActiveElement();
+        
         section.classList.add('your-active-class');
         section.style.cssText = "background-color: goldenrod";
 
@@ -110,22 +110,35 @@ function setActive () {
             
         };
 
+//**--------------MODIFIED----------------
+        // set corresponding header style
+        const active = document.querySelector('li[data-nav="' + section.id + '"]');
+        active.classList.add('active__link');
 
+        // remove from other headers
+        const headers = document.querySelectorAll('.menu__link');
+        for (let item of headers) {
+
+            if (item.dataset.nav != active.dataset.nav & item.classList.contains('active__link')) {
+                item.classList.remove('active__link');
+            }
+        };
+    
     });
 }
 
 
-// When user scrolls 20px down from the top
 
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        topButton.style.display = "block";
-    } else {
-        topButton.style.display = "none";
-        //remove section highlight on the top of the page
-        document.querySelector("section").style.cssText=null
-    }
-}
+//--------------MODIFIED------------------
+// Scroll to anchor ID using scrollTO event
+function scrollToClick() {
+    navBar.addEventListener('click', function (event) {
+        const clicked = document.querySelector('#' + event.target.dataset.nav)
+        clicked.scrollIntoView();   
+    });
+};
+
+
 
 
 
@@ -146,8 +159,11 @@ buildMenu();
 setActive();
 
 
+// Scroll to section on link click
+scrollToClick();
 
-//add event to top button
+
+//add event To top button
 
 topButton.addEventListener('click' , function(){
     scrollTo({
@@ -156,20 +172,6 @@ topButton.addEventListener('click' , function(){
     })
 })
 
-// remove top button on the top of the page untill 20px down from the top
-window.onscroll = function() {
-    scrollFunction();
-};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        topButton.style.display = "block";
-    } else {
-        topButton.style.display = "none";
-        //remove section highlight on the top of the page
-        document.querySelector("section").style.cssText=null
-    }
-}
 
 
 

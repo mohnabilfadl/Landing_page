@@ -68,12 +68,34 @@ section {
 
 /* ---- Module Rules ---- */
 
+
+/* **-----------------MODIFIED---------------** to make the page responsive while the width less than 600 px*/
+@media screen and (max-width: 600px) {
+    
+    ul{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        font-size: 1px;
+    }
+    body{
+        font-size: 10px;
+    }
+    h1{
+        font-size: 60px;
+    }
+    
+}
+ 
+
 /* Navigation Styles*/
+
 .navbar__menu ul {
     padding-left: 0;
     margin: 0;
     text-align: center;
-    
+    background: rgb(21, 168, 107); 
+    display: flex; 
 }
 
 .navbar__menu li {
@@ -92,7 +114,16 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+    cursor: pointer;
 }
+
+.active__link{
+    
+    background-color:goldenrod
+
+
+}
+
 
 /* Header Styles */
 .page__header {
@@ -236,16 +267,17 @@ section.your-active-class .landing__container::after {
     right: 30px;  
     border: none; 
     outline: none; 
-    background-color: rgb(168, 233, 18); 
+    background-color: rgb(233, 232, 243); 
     color: black;  
     padding: 15px; 
     border-radius: 15px; 
     font-size: 15px;
-    font-weight: bold; 
+    font-weight: bold;
+    cursor: pointer; 
 }
   
 #top_button:hover {
-    background-color: rgb(82, 161, 29);
+    background-color: rgb(156, 1, 1);
     color: white; 
 }
 
